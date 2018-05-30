@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+    web:
+        image: nginx:1
+        ports:
+            - "8080:80"
+        volumes:
+            - ./www:/var/www:rw
+            - ./conf.d:/etc/nginx/conf.d
+            - ./log:/var/log/nginx
+            - "phpsocket:/var/run"
+        networks:
+            - code-network
+        depends_on:
+            - php
+    php:
+        image: php:fpm
+        volumes:
+            - ./www:/var/www:rw
+            - ./php-fpm.d:/usr/local/etc/php-fpm.d
+            - ./config:/usr/local/etc/php
+            - "phpsocket:/var/run"
+        networks:
+            - code-network
+    db:
+        image: mysql:5
+        volumes:
+            - db_data:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: somewordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+        ports:
+            - "33060:3306"
+networks:
+    code-network:
+        driver: bridge
+volumes:
+    phpsocket:
+    db_data:
