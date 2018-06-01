@@ -11,3 +11,7 @@ RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install pdo_mysql
+RUN pecl install redis \
+	docker-php-ext-enable redis
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+

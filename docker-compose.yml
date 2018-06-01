@@ -4,7 +4,7 @@ services:
     web:
         image: nginx:1
         ports:
-            - "8080:80"
+            - "80:80"
         volumes:
             - ./www:/var/www:rw
             - ./conf.d:/etc/nginx/conf.d
@@ -34,13 +34,23 @@ services:
             MYSQL_ROOT_PASSWORD: somewordpress
             MYSQL_DATABASE: helper_dev
             MYSQL_USER: helper_dev 
-            MYSQL_PASSWORD: wordpress
+            MYSQL_PASSWORD: xiaozhu2Ndai 
         ports:
-            - "33060:3306"
+            - "3306:3306"
+        networks:
+            - code-network
     redis:
         image: redis:4
         ports:
             - "6379:6379"
+        networks:
+            - code-network
+    composer:
+        volumes: 
+            - ./www:/app
+        build:
+            context: ./composer
+            dockerfile: Dockerfile
 networks:
     code-network:
         driver: bridge
