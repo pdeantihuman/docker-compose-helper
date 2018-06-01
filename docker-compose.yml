@@ -19,7 +19,7 @@ services:
             context: ./php-fpm
             dockerfile: Dockerfile
         volumes:
-            - ../www:/var/www:rw
+            - ../www:/var/www/html:rw
             - ./php-fpm.d:/usr/local/etc/php-fpm.d
             - ./php.ini.d:/usr/local/etc/php
             - "phpsocket:/var/run"
