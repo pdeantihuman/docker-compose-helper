@@ -6,7 +6,7 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./www:/var/www:rw
+            - ../www:/var/www:rw
             - ./conf.d:/etc/nginx/conf.d
             - ./log:/var/log/nginx
             - "phpsocket:/var/run"
@@ -19,7 +19,7 @@ services:
             context: ./php-fpm
             dockerfile: Dockerfile
         volumes:
-            - ./www:/var/www:rw
+            - ../www:/var/www:rw
             - ./php-fpm.d:/usr/local/etc/php-fpm.d
             - ./php.ini.d:/usr/local/etc/php
             - "phpsocket:/var/run"
@@ -47,7 +47,7 @@ services:
             - code-network
     composer:
         volumes: 
-            - ./www:/app
+            - ../www:/app
         build:
             context: ./composer
             dockerfile: Dockerfile
