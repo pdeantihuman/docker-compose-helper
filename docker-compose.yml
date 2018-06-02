@@ -15,11 +15,9 @@ services:
         depends_on:
             - php
     php:
-        build:
-            context: ./php-fpm
-            dockerfile: Dockerfile
+        image: agantihuman/php:1.00
         volumes:
-            - ../www:/var/www/html:rw
+            - ../www:/var/www:rw
             - ./php-fpm.d:/usr/local/etc/php-fpm.d
             - ./php.ini.d:/usr/local/etc/php
             - "phpsocket:/var/run"
